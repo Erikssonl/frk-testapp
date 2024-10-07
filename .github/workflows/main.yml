@@ -1,4 +1,4 @@
-name: deploy-frontend-to
+name: deploy-frontend-to-stage
 on:
   push:
     branches:
@@ -6,8 +6,15 @@ on:
     paths:
       - 'package.json'
 jobs:
-  any-job:
+  deploy-to-stage:
     runs-on: ubuntu-latest
     steps:
-      - name: any-step
+      - name: Check for version change
+        id: version_change
+        uses: EndBug/version-check@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          diff-search: true
+
+      - name: hello-world
         run: echo "Hello World"
